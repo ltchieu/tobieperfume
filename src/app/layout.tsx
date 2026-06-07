@@ -19,6 +19,9 @@ const serifFont = Playfair_Display({
 export const metadata: Metadata = {
   title: "TOBI PERFUME",
   description: "Perfume shop",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
