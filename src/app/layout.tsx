@@ -17,8 +17,8 @@ const serifFont = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "KAMUI | TOBI PERFUME",
-  description: "The Mangekyou Sharingan Medallion - An immersive 3D Sharingan olfactory journey into the Kamui dimension.",
+  title: "TOBI PERFUME",
+  description: "Perfume shop",
 };
 
 export default function RootLayout({
