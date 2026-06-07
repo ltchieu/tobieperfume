@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import Magnetic from "@/components/Magnetic";
 
 // Dynamically import Three.js Canvas to prevent SSR issues
@@ -25,6 +26,18 @@ export default function IntroSection() {
   const [introPhase, setIntroPhase] = useState<"assembling" | "spraying" | "frozen" | "explored">("assembling");
   const [showShockwave, setShowShockwave] = useState(false);
   const [showToast, setShowToast] = useState(false);
+
+  // Navigation click handler for smooth scroll
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    e.preventDefault();
+    if (link === "Tinh Hoa") {
+      const el = document.getElementById("section-tinhhoa");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else if (link === "Đặc Quyền") {
+      const el = document.getElementById("section-dacquyen");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   // Block scrolling during assembling and spraying phases
   useEffect(() => {
@@ -138,17 +151,37 @@ export default function IntroSection() {
             </span>
           </div>
           <nav className="hidden md:flex gap-10 pointer-events-auto">
-            {["Khám Phá", "Tinh Hoa", "Đặc Quyền"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="font-sans text-xs uppercase tracking-[0.2em] text-zinc-300 hover:text-amber-500 transition-colors"
-              >
-                {link}
-              </a>
-            ))}
+            {["Khám Phá", "Tinh Hoa", "Đặc Quyền"].map((link) => {
+              if (link === "Khám Phá") {
+                return (
+                  <Link
+                    key={link}
+                    href="/products"
+                    className="font-sans text-xs uppercase tracking-[0.2em] text-zinc-300 hover:text-amber-500 transition-colors"
+                  >
+                    {link}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link}
+                  href="#"
+                  onClick={(e) => handleNavClick(e, link)}
+                  className="font-sans text-xs uppercase tracking-[0.2em] text-zinc-300 hover:text-amber-500 transition-colors"
+                >
+                  {link}
+                </a>
+              );
+            })}
           </nav>
-          <div className="pointer-events-auto">
+          <div className="pointer-events-auto flex items-center gap-6">
+            <Link
+              href="/products"
+              className="md:hidden font-sans text-xs uppercase tracking-[0.2em] text-amber-500 hover:text-amber-400 font-semibold transition-colors pointer-events-auto cursor-pointer"
+            >
+              Khám Phá
+            </Link>
             <span className="font-sans text-xs uppercase tracking-[0.15em] text-zinc-300 font-medium">
               VN / EN
             </span>
@@ -209,7 +242,7 @@ export default function IntroSection() {
         </section>
 
         {/* Section 1: Decode Fragrance Section */}
-        <section className="h-screen flex items-center justify-end px-6 md:px-24 relative pointer-events-none">
+        <section id="section-tinhhoa" className="h-screen flex items-center justify-end px-6 md:px-24 relative pointer-events-none">
           <div className="w-full md:w-1/2 max-w-lg flex flex-col gap-6 pointer-events-auto">
             <div className="flex flex-col gap-2">
               <span className="font-sans text-xs uppercase tracking-[0.25em] text-red-500/70">
@@ -258,7 +291,7 @@ export default function IntroSection() {
         </section>
 
         {/* Section 2: CTA & Consulting Section */}
-        <section className="h-screen flex items-center justify-start px-6 md:px-24 relative pointer-events-none">
+        <section id="section-dacquyen" className="h-screen flex items-center justify-start px-6 md:px-24 relative pointer-events-none">
           <div className="w-full md:w-1/2 max-w-lg flex flex-col gap-6 pointer-events-auto">
             <div className="flex flex-col gap-2">
               <span className="font-sans text-xs uppercase tracking-[0.25em] text-red-500/70">

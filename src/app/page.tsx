@@ -1,6 +1,6 @@
 "use client";
 
-import IntroSection from "@/components/page/IntroSection";
+import IntroSection from "@/page/IntroSection";
 
 export default function Home() {
   return (
